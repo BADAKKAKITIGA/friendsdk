@@ -299,8 +299,8 @@ export default function Inkbound({ friendId, client, paused }: GameComponentProp
   const sigils = snapshot.consumables;
   const kept = snapshot.inventory.reduce((total, amount) => total + amount, 0n);
   const family = sprites.current?.familyName ?? "—";
-  const cleared = ZONES.filter((_, index) => index < state.zone).length;
   const heartRow = Array.from({ length: state.maxHp }, (_, index) => index < state.hp);
+  const objective = Math.min(100, ((state.kills / zone.need.kills) + (state.motes / zone.need.motes)) * 50);
   void tick;
 
   return (
@@ -322,14 +322,15 @@ export default function Inkbound({ friendId, client, paused }: GameComponentProp
               <span className="ink-stat"><b>{state.motes}</b><small>motes</small></span>
               <span className="ink-stat"><b>{state.kills}</b><small>kills</small></span>
               {state.combo > 1 && <span className="ink-combo">×{state.combo} combo</span>}
-              <span className="ink-stat ink-rf"><b>{rf(snapshot.rfBalance)}</b><small>simulated</small></span>
+              <button type="button" className="ink-stat ink-rf" onClick={() => setMenu("settings")} aria-label="Settings">
+                <b>{rf(snapshot.rfBalance)}</b><small>settings</small>
+              </button>
             </div>
           </div>
           <div className="ink-bars">
             <span className="ink-bar ink-bar-ember"><i style={{ width: `${state.ember}%` }} /><b>Ember</b></span>
-            <span className="ink-bar ink-bar-zone"><i style={{ width: `${Math.min(100, (state.kills / zone.need.kills) * 100)}%` }} /><b>Shadows {state.kills}/{zone.need.kills}</b></span>
-            <span className="ink-bar ink-bar-mote"><i style={{ width: `${Math.min(100, (state.motes / zone.need.motes) * 100)}%` }} /><b>Motes {state.motes}/{zone.need.motes}</b></span>
-            <span className={`ink-bar ink-bar-gate ${gateOpen(state) ? "open" : ""}`}><i style={{ width: `${Math.min(100, (state.x / zone.gate[0]) * 100)}%` }} /><b>{gateOpen(state) ? "Gate open" : "Gate sealed"}</b></span>
+            <span className="ink-bar ink-bar-zone"><i style={{ width: `${objective}%` }} /><b>S {state.kills}/{zone.need.kills} · M {state.motes}/{zone.need.motes}</b></span>
+            <span className={`ink-gate-chip ${gateOpen(state) ? "open" : ""}`}>{gateOpen(state) ? "GATE OPEN" : "GATE SEALED"} · {Math.round((state.x / zone.gate[0]) * 100)}%</span>
           </div>
           {state.boost > 0 && <div className="ink-boost">SURGE {Math.ceil(state.boost)}s</div>}
           {verdict && (
@@ -347,7 +348,6 @@ export default function Inkbound({ friendId, client, paused }: GameComponentProp
               IGNITE · {sigils.toString()}
             </button>
           </div>
-          <button type="button" className="ink-corner" onClick={() => setMenu("settings")}>Settings</button>
         </>
       )}
 

@@ -1,5 +1,21 @@
-/* Trusted runtime layout for Inkbound: a wide race frame on desktop, letterboxed on phones. */
+/* Trusted runtime layout for Inkbound.
+   Landscape keeps a wide 16/9 frame; portrait phones get a tall frame so the
+   play area is usable instead of a 200px strip. */
 :root {
   --rf-game-max-width: 1180px;
   --rf-game-aspect-ratio: 16 / 9;
+}
+
+@media (orientation: portrait) and (max-width: 900px) {
+  :root {
+    --rf-game-max-width: 560px;
+    --rf-game-aspect-ratio: 3 / 4;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 620px) {
+  :root {
+    --rf-game-max-width: 1000px;
+    --rf-game-aspect-ratio: 16 / 10;
+  }
 }

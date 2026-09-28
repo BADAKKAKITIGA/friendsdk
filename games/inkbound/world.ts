@@ -420,9 +420,11 @@ export function createRenderer(canvas: HTMLCanvasElement): Renderer {
     if (sprites) ensureAtlas(sprites);
     const zone = ZONES[sim.zone];
     const targetX = sim.x - width * 0.38;
-    const targetY = sim.y - height * 0.62;
+    // Frame the Friend at ~58% of the frame height on every aspect ratio, so a
+    // short portrait frame never buries the hero under the touch controls.
+    const targetY = sim.y - height * 0.58;
     camera.x += (targetX - camera.x) * 0.11;
-    camera.y += (Math.max(-40, Math.min(120, targetY)) - camera.y) * 0.07;
+    camera.y += (Math.max(-140, Math.min(height * 0.8, targetY)) - camera.y) * 0.07;
     const camX = Math.round(camera.x), camY = Math.round(camera.y);
 
     ctx.save();
