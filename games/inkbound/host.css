@@ -1,0 +1,5 @@
+/* Trusted runtime layout for Inkbound: a wide race frame on desktop, letterboxed on phones. */
+:root {
+  --rf-game-max-width: 1180px;
+  --rf-game-aspect-ratio: 16 / 9;
+}

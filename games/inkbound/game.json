@@ -1,0 +1,15 @@
+{
+  "name": "Inkbound — The Ember Run",
+  "consumable": "Sealed Ember Sigil",
+  "price": "1000000000000000000",
+  "outcomes": [
+    { "name": "Ash Wisp", "chanceBps": 2000, "reward": "0" },
+    { "name": "Coal Fleck", "chanceBps": 2200, "reward": "250000000000000000" },
+    { "name": "Ember Bead", "chanceBps": 1800, "reward": "500000000000000000" },
+    { "name": "Copper Sigil", "chanceBps": 1500, "reward": "750000000000000000" },
+    { "name": "Silver Ink", "chanceBps": 1100, "reward": "1500000000000000000" },
+    { "name": "Gold Rune", "chanceBps": 900, "reward": "2500000000000000000" },
+    { "name": "Prism Ember", "chanceBps": 400, "reward": "5000000000000000000" },
+    { "name": "First Flame", "chanceBps": 100, "reward": "10000000000000000000" }
+  ]
+}
